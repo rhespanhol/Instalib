@@ -1,0 +1,38 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.0"
+
+    defaultConfig {
+        applicationId "me.rhespanhol.instalib"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    final SUPPORT_LIBRARY_VERSION = '23.0.0'
+    final OK_HTTP_VERSION = '2.5.0'
+    final RETROFIT_VERSION = '2.0.0-beta1'
+
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION"
+
+    // OKHTTP + retrofit
+    compile "com.squareup.retrofit:retrofit:$RETROFIT_VERSION"
+    compile "com.squareup.retrofit:converter-gson:$RETROFIT_VERSION"
+    compile "com.squareup.okhttp:okhttp:$OK_HTTP_VERSION"
+    compile "com.squareup.okhttp:okhttp-urlconnection:$OK_HTTP_VERSION"
+
+    // OAUTH
+    compile 'org.apache.oltu.oauth2:org.apache.oltu.oauth2.client:1.0.0'
+}
