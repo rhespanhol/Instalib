@@ -14,6 +14,7 @@ import retrofit.http.Query;
 /**
  * Created by rhespanhol on 14/09/15.
  */
+
 public interface UsersEndpoint {
 
     @GET(EndpointConstants.USERID_ENDPOINT)

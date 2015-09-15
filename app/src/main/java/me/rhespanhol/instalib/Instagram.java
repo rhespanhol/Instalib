@@ -11,7 +11,7 @@ import org.apache.oltu.oauth2.common.message.types.GrantType;
 import org.apache.oltu.oauth2.common.message.types.ResponseType;
 
 import me.rhespanhol.instalib.services.MediaEndpoint;
-import me.rhespanhol.instalib.services.UsersEndpoint;
+import me.rhespanhol.instalib.services.UsersService;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 
@@ -35,8 +35,8 @@ public class Instagram {
      * to {@code redirectUri} with the authorization code and the sent state in the query parameter {@code code}.
      * <p/>
      *
-     * @param clientId    The OAuth client id obtained from trakt.
-     * @param redirectUri The URI as configured on trakt to redirect to with appended auth code and state query
+     * @param clientId    The OAuth client id obtained from instagram.
+     * @param redirectUri The URI as configured on instagram to redirect to with appended auth code and state query
      *                    parameters.
      */
     public static OAuthClientRequest getAuthorizationRequest(String clientId, String redirectUri) throws OAuthSystemException {
@@ -53,9 +53,9 @@ public class Instagram {
      * Build an OAuth 2.0 access token request. The grant is based on an authorization code that was just obtained from
      * an authorization request.
      *
-     * @param clientId The OAuth client id obtained from trakt.
-     * @param clientSecret The OAuth client secret obtained from trakt.
-     * @param redirectUri The redirect URI as configured on trakt.
+     * @param clientId The OAuth client id obtained from instagram.
+     * @param clientSecret The OAuth client secret obtained from instagram.
+     * @param redirectUri The redirect URI as configured on instagram.
      * @param authCode A just obtained authorization code.
      */
     public static OAuthClientRequest getAccessTokenRequest(String clientId, String clientSecret, String redirectUri,
@@ -72,17 +72,17 @@ public class Instagram {
 
 
     /**
-     * Request an access token from trakt. Builds the request with {@link #getAccessTokenRequest} and executes it, then
+     * Request an access token from instagram. Builds the request with {@link #getAccessTokenRequest} and executes it, then
      * returns the response which includes the access token.
      *
      * <p>Supply the received access token to {@link #setAccessToken(String)} and store the refresh token to later
      * refresh the access token once it has expired.
      *
      * <p>On failure re-authorization of your app is required (see {@link #getAuthorizationRequest}).
-     *  @param clientId The OAuth client id obtained from trakt.
-     * @param clientSecret The OAuth client secret obtained from trakt.
-     * @param redirectUri The redirect URI as configured on trakt.
-     * @param authCode A valid authorization code (see {@link #getAuthorizationRequest(String, String, String, String)}).
+     *  @param clientId The OAuth client id obtained from instagram.
+     * @param clientSecret The OAuth client secret obtained from instagram.
+     * @param redirectUri The redirect URI as configured on instagram.
+     * @param authCode A valid authorization code (see {@link #getAuthorizationRequest(String, String)}).
      */
     public static OAuthJSONAccessTokenResponse getAccessToken(String clientId, String clientSecret, String redirectUri,
                                                               String authCode) throws OAuthSystemException, OAuthProblemException {
@@ -156,9 +156,13 @@ public class Instagram {
         return gsonBuilder;
     }
 
-    public UsersEndpoint users() {
-        return getRestAdapter().create(UsersEndpoint.class);
+    public UsersService users() {
+        return new UsersService(getRestAdapter(), mAccessToken);
     }
+
+//    public UsersEndpoint users() {
+//        return getRestAdapter().create(UsersEndpoint.class);
+//    }
 
     public MediaEndpoint media(){
         return getRestAdapter().create(MediaEndpoint.class);
