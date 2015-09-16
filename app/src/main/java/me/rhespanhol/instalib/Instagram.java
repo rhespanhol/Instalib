@@ -10,7 +10,12 @@ import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
 import org.apache.oltu.oauth2.common.message.types.GrantType;
 import org.apache.oltu.oauth2.common.message.types.ResponseType;
 
-import me.rhespanhol.instalib.services.MediaEndpoint;
+import me.rhespanhol.instalib.services.CommentsService;
+import me.rhespanhol.instalib.services.LikesService;
+import me.rhespanhol.instalib.services.LocationService;
+import me.rhespanhol.instalib.services.MediaService;
+import me.rhespanhol.instalib.services.RelationshipsService;
+import me.rhespanhol.instalib.services.TagsService;
 import me.rhespanhol.instalib.services.UsersService;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
@@ -156,16 +161,32 @@ public class Instagram {
         return gsonBuilder;
     }
 
-    public UsersService users() {
-        return new UsersService(getRestAdapter(), mAccessToken);
+    public CommentsService comments(){
+        return new CommentsService(getRestAdapter(), mAccessToken);
     }
 
-//    public UsersEndpoint users() {
-//        return getRestAdapter().create(UsersEndpoint.class);
-//    }
+    public LikesService likes(){
+        return new LikesService(getRestAdapter(), mAccessToken);
+    }
 
-    public MediaEndpoint media(){
-        return getRestAdapter().create(MediaEndpoint.class);
+    public LocationService location(){
+        return new LocationService(getRestAdapter(), mAccessToken);
+    }
+
+    public MediaService media(){
+        return new MediaService(getRestAdapter(), mAccessToken);
+    }
+
+    public RelationshipsService relationships(){
+        return new RelationshipsService(getRestAdapter(), mAccessToken);
+    }
+
+    public TagsService tags(){
+        return new TagsService(getRestAdapter(), mAccessToken);
+    }
+
+    public UsersService users() {
+        return new UsersService(getRestAdapter(), mAccessToken);
     }
 
 }
