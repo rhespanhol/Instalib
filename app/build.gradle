@@ -33,7 +33,4 @@ dependencies {
     compile "com.squareup.retrofit:converter-gson:$RETROFIT_VERSION"
     compile "com.squareup.okhttp:okhttp:$OK_HTTP_VERSION"
     compile "com.squareup.okhttp:okhttp-urlconnection:$OK_HTTP_VERSION"
-
-    // OAUTH
-    compile 'org.apache.oltu.oauth2:org.apache.oltu.oauth2.client:1.0.0'
 }
